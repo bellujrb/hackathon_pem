@@ -1,0 +1,489 @@
+definitions:
+  db.DomesticViolenceBO:
+    properties:
+      created_at:
+        type: string
+      date_of_incident:
+        description: Data do incidente
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      incident_address:
+        description: Local do incidente
+        type: string
+      offender_name:
+        description: Nome do agressor
+        type: string
+      police_station:
+        description: Delegacia responsável
+        type: string
+      report_details:
+        description: Detalhes do boletim de ocorrência
+        type: string
+      status:
+        description: 'Status do boletim (ex: Em andamento, Concluído)'
+        type: string
+      updated_at:
+        type: string
+      victim_contact:
+        description: Contato da vítima
+        type: string
+      victim_name:
+        description: Nome da vítima
+        type: string
+    type: object
+  db.EmergencyRequest:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      location:
+        description: 'Localização geográfica da vítima (ex: coordenadas GPS)'
+        type: string
+      updated_at:
+        type: string
+      victim_contact:
+        description: Contato da vítima
+        type: string
+      victim_name:
+        description: Nome da vítima solicitando socorro
+        type: string
+    type: object
+  db.Program:
+    properties:
+      contact_email:
+        description: Email de contato
+        type: string
+      contact_phone:
+        description: Telefone de contato
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      description:
+        description: Descrição do programa
+        type: string
+      id:
+        type: integer
+      program_name:
+        description: Nome do programa
+        type: string
+      updated_at:
+        type: string
+      website_url:
+        description: URL do site do programa
+        type: string
+    type: object
+  interfaces.DomesticViolenceBO:
+    description: Registro de B.O de Violência Doméstica contra Mulher.
+    properties:
+      date_of_incident:
+        description: Data do incidente
+        type: string
+      incident_address:
+        description: Local do incidente
+        type: string
+      offender_name:
+        description: Nome do agressor
+        type: string
+      police_station:
+        description: Delegacia responsável
+        type: string
+      report_details:
+        description: Detalhes do boletim de ocorrência
+        type: string
+      status:
+        description: 'Status do boletim (ex: Em andamento, Concluído)'
+        type: string
+      victim_contact:
+        description: Contato da vítima
+        type: string
+      victim_name:
+        description: Nome da vítima
+        type: string
+    type: object
+  interfaces.EmergencyRequest:
+    description: Solicitação de socorro com localização da vítima.
+    properties:
+      location:
+        description: 'Localização geográfica da vítima (ex: coordenadas GPS)'
+        type: string
+      victim_contact:
+        description: Contato da vítima
+        type: string
+      victim_name:
+        description: Nome da vítima solicitando socorro
+        type: string
+    type: object
+  interfaces.Program:
+    description: Programas disponíveis para assistência.
+    properties:
+      contact_email:
+        description: Email de contato
+        type: string
+      contact_phone:
+        description: Telefone de contato
+        type: string
+      description:
+        description: Descrição do programa
+        type: string
+      program_name:
+        description: Nome do programa
+        type: string
+      website_url:
+        description: URL do site do programa
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+info:
+  contact: {}
+  description: This is a server for app.
+  title: perna
+  version: "1.0"
+paths:
+  /api/domestic-violence-bos:
+    get:
+      description: Get all Domestic Violence BOs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/db.DomesticViolenceBO'
+            type: array
+      summary: Get All Domestic Violence BOs
+      tags:
+      - DomesticViolenceBO
+    post:
+      consumes:
+      - application/json
+      description: Create a new Domestic Violence BO record
+      parameters:
+      - description: Domestic Violence BO Data
+        in: body
+        name: DomesticViolenceBO
+        required: true
+        schema:
+          $ref: '#/definitions/interfaces.DomesticViolenceBO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.DomesticViolenceBO'
+      summary: Create Domestic Violence BO
+      tags:
+      - DomesticViolenceBO
+  /api/domestic-violence-bos/{id}:
+    delete:
+      description: Delete a Domestic Violence BO record by ID
+      parameters:
+      - description: Domestic Violence BO ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Deleted Successfully
+          schema:
+            type: string
+      summary: Delete Domestic Violence BO by ID
+      tags:
+      - DomesticViolenceBO
+    get:
+      description: Get a single Domestic Violence BO by ID
+      parameters:
+      - description: Domestic Violence BO ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.DomesticViolenceBO'
+      summary: Get Domestic Violence BO by ID
+      tags:
+      - DomesticViolenceBO
+    put:
+      consumes:
+      - application/json
+      description: Update a Domestic Violence BO record by ID
+      parameters:
+      - description: Domestic Violence BO ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated Domestic Violence BO Data
+        in: body
+        name: DomesticViolenceBO
+        required: true
+        schema:
+          $ref: '#/definitions/interfaces.DomesticViolenceBO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.DomesticViolenceBO'
+      summary: Update Domestic Violence BO by ID
+      tags:
+      - DomesticViolenceBO
+  /api/emergency-requests:
+    get:
+      description: Get all Emergency Requests
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/db.EmergencyRequest'
+            type: array
+      summary: Get All Emergency Requests
+      tags:
+      - EmergencyRequest
+    post:
+      consumes:
+      - application/json
+      description: Create a new Emergency Request record
+      parameters:
+      - description: Emergency Request Data
+        in: body
+        name: EmergencyRequest
+        required: true
+        schema:
+          $ref: '#/definitions/interfaces.EmergencyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.EmergencyRequest'
+      summary: Create Emergency Request
+      tags:
+      - EmergencyRequest
+  /api/emergency-requests/{id}:
+    delete:
+      description: Delete an Emergency Request record by ID
+      parameters:
+      - description: Emergency Request ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Deleted Successfully
+          schema:
+            type: string
+      summary: Delete Emergency Request by ID
+      tags:
+      - EmergencyRequest
+    get:
+      description: Get a single Emergency Request by ID
+      parameters:
+      - description: Emergency Request ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.EmergencyRequest'
+      summary: Get Emergency Request by ID
+      tags:
+      - EmergencyRequest
+    put:
+      consumes:
+      - application/json
+      description: Update an Emergency Request record by ID
+      parameters:
+      - description: Emergency Request ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated Emergency Request Data
+        in: body
+        name: EmergencyRequest
+        required: true
+        schema:
+          $ref: '#/definitions/interfaces.EmergencyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.EmergencyRequest'
+      summary: Update Emergency Request by ID
+      tags:
+      - EmergencyRequest
+  /api/programs:
+    get:
+      description: Get all Programs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/db.Program'
+            type: array
+      summary: Get All Programs
+      tags:
+      - Program
+    post:
+      consumes:
+      - application/json
+      description: Create a new Program record
+      parameters:
+      - description: Program Data
+        in: body
+        name: Program
+        required: true
+        schema:
+          $ref: '#/definitions/interfaces.Program'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.Program'
+      summary: Create Program
+      tags:
+      - Program
+  /api/programs/{id}:
+    delete:
+      description: Delete a Program record by ID
+      parameters:
+      - description: Program ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Deleted Successfully
+          schema:
+            type: string
+      summary: Delete Program by ID
+      tags:
+      - Program
+    get:
+      description: Get a single Program by ID
+      parameters:
+      - description: Program ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.Program'
+      summary: Get Program by ID
+      tags:
+      - Program
+    put:
+      consumes:
+      - application/json
+      description: Update a Program record by ID
+      parameters:
+      - description: Program ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated Program Data
+        in: body
+        name: Program
+        required: true
+        schema:
+          $ref: '#/definitions/interfaces.Program'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.Program'
+      summary: Update Program by ID
+      tags:
+      - Program
+  /api/test-token:
+    post:
+      consumes:
+      - application/json
+      description: Cria um toke para auth do usuario
+      parameters:
+      - default: Bearer <token>
+        description: Token de autenticação
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'token make:'
+          schema:
+            type: string
+      summary: Test Token
+      tags:
+      - Auth
+  /token:
+    get:
+      consumes:
+      - application/json
+      description: Cria um toke para auth do usuario
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'token make:'
+          schema:
+            type: string
+      summary: Criar token de auth
+      tags:
+      - Auth
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
